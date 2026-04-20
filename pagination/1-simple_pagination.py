@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """
-Module containing a helper function for pagination and a Server class 
-to paginate a database of popular baby names.
+Module for simple pagination of a baby names dataset.
 """
 import csv
 import math
@@ -10,10 +9,9 @@ from typing import List, Tuple
 
 def index_range(page: int, page_size: int) -> Tuple[int, int]:
     """
-    Return a tuple containing a start index and an end index for pagination.
+    Return a tuple of size two containing a start index and an end index.
     """
-    start = (page - 1) * page_size
-    return (start, start + page_size)
+    return ((page - 1) * page_size, page * page_size)
 
 
 class Server:
@@ -27,7 +25,7 @@ class Server:
 
     def dataset(self) -> List[List]:
         """
-        Return the cached dataset after loading it from the CSV file.
+        Cached dataset from the CSV file.
         """
         if self.__dataset is None:
             with open(self.DATA_FILE) as f:
@@ -39,15 +37,21 @@ class Server:
 
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
         """
-        Return the appropriate page of the dataset based on pagination parameters.
+        Return the appropriate page of the dataset based on input parameters.
         """
+        # Verification that arguments are integers greater than 0
         assert isinstance(page, int) and page > 0
         assert isinstance(page_size, int) and page_size > 0
 
+        # Calculate indexes using the helper function
         start, end = index_range(page, page_size)
+
+        # Get the dataset content
         data = self.dataset()
 
+        # Handle out of range requests
         if start >= len(data):
             return []
 
         return data[start:end]
+    
