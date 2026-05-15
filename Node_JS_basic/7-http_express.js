@@ -63,7 +63,7 @@ app.get('/', (req, res) => {
 // Route for the students endpoint
 app.get('/students', (req, res) => {
   res.set('Content-Type', 'text/plain');
-  
+
   countStudents(DATABASE_FILE)
     .then((data) => {
       res.send(`This is the list of our students\n${data}`);
