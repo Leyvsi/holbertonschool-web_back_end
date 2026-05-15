@@ -60,4 +60,3 @@ function countStudents(path) {
 
 // Export the function
 module.exports = countStudents;
-

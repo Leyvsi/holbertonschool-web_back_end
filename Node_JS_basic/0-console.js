@@ -5,4 +5,3 @@ function displayMessage(message) {
 
 // Export the function
 module.exports = displayMessage;
-
