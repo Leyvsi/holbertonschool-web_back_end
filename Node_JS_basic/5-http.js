@@ -59,7 +59,7 @@ const app = http.createServer((req, res) => {
     res.end('Hello Holberton School!');
   } else if (req.url === '/students') {
     res.write('This is the list of our students\n');
-    
+
     countStudents(DATABASE_FILE)
       .then((data) => {
         res.end(data);
